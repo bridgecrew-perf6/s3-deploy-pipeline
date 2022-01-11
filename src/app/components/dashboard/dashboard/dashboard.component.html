@@ -15,7 +15,7 @@
                 <img class="dropdownimage" [src]="(!!getItems[id].socialImage)?getItems[id].socialImage:'https://graph.facebook.com/'+getItems[id].pageId+'/picture'" />
                 <!-- <img class="dropdownimage" *ngIf="getItems[id].socialImage" [src]="(!!getItems[id].socialImage)?getItems[id].socialImage:'../../../../assets/img/Linkedin.svg'" />
                 <img class="dropdownimage" *ngIf="!getItems[id].socialImage || getItems[id].socialImage == null" [src]="'../../../../assets/img/Linkedin.svg'" /> -->
-                <i style="color: rgb(52, 140, 190); position: relative; left: -12px; top: 14px;"
+                <i style="color: rgb(127, 171, 197); position: relative; left: -12px; top: 14px;"
                   class="fa{{getItems[id].tagIcon != 'building'?'b':'' }} fa-{{getItems[id].tagIcon}} fa-sm circle-icon"></i>
                 {{getItems[id].socialName}}
               </label>
