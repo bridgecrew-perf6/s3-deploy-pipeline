@@ -1,7 +1,5 @@
 export const environment = {
   production: true,
-  export const environment = {
-    production: false,
     userManagement: 'https://e9a45i8ip3.execute-api.ap-south-1.amazonaws.com/Dev/user',
     socialMedia:'https://e9a45i8ip3.execute-api.ap-south-1.amazonaws.com/Dev/manageSM',
     contentManagement:'https://e9a45i8ip3.execute-api.ap-south-1.amazonaws.com/Dev/cm',
