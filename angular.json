@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/Aikyne_SMP",
+            "outputPath": "dist/",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -112,20 +112,20 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "Aikyne_SMP:build"
+            "browserTarget": "build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "Aikyne_SMP:build:production"
+              "browserTarget": "build:production"
             },"qa": {
-              "browserTarget": "Aikyne_SMP:build:qa"
+              "browserTarget": "build:qa"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Aikyne_SMP:build"
+            "browserTarget": "build"
           }
         },
         "test": {
@@ -163,11 +163,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "Aikyne_SMP:serve"
+            "devServerTarget": "serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "Aikyne_SMP:serve:production"
+              "devServerTarget": "serve:production"
             }
           }
         }
