@@ -1,6 +1,6 @@
 <div class="container-fluid login-screen">
   <div class="row">
-    <div class="col-md-8 nodisplay">
+    <div class="col-md-8 nodisplay"> <br/> <br/>
       <img src="../../../../assets/img/Social_Media_Marketing.png" alt="Login">
     </div>
     <div class="col-md-4">
@@ -12,7 +12,7 @@
               <div class="form-label-group">
 
                 <input type="email" name="email" formControlName="email" class="form-control" placeholder="Enter email"  [(ngModel)]="forgotUserData.email">
-
+                
                 <div *ngIf="(login.controls.email.invalid && login.controls.email.touched) || login.controls.email.dirty">
 									<small *ngIf="login.controls.email.errors?.pattern" class="text-danger">Please provide a valid email address</small>
 								</div>

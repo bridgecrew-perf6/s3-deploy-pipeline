@@ -5,10 +5,7 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { ProfileService } from 'src/app/services/usermanagement/profile.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ManageaccountService } from 'src/app/services/manageaccount.service';
-import { TwitterService } from 'src/app/services/socialmedia/twitter.service';
-import { interval } from 'rxjs';
-import { takeWhile, tap } from 'rxjs/operators';
-declare var $: any;
+
 
 @Component({
   selector: 'app-feeds',
@@ -23,89 +20,57 @@ export class FeedsComponent implements OnInit {
     'LinkedIn',
     'Youtube'
   ];
-  timeline:any[] =[];
 
-  public socialProfiles = [{ socialId: '', socialName: '' }];
+  userSocialProfile: SocialProfile | undefined;
+  public dropdownList: SocialDropDown[] = [];
+
+  dropdownSettings: IDropdownSettings = {
+    singleSelection: false,
+    idField: 'socialId',
+    textField: 'socialName',
+    enableCheckAll: false,
+    itemsShowLimit: 5,
+    allowSearchFilter: false,
+  };
 
   constructor(
     private manageaccountService: ManageaccountService,
     public profileService: ProfileService,
-    private spinner: NgxSpinnerService,
-    private twitterService: TwitterService) { }
+    private spinner: NgxSpinnerService) { }
 
   drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.timeline, event.previousIndex, event.currentIndex);
-  }
-
-  // scrollLeft(){
-  //   $('#scrollContainer').scrollLeft -= 20;
-  // }
-
-  // scrollRight(){
-  //   $('#scrollContainer').scrollLeft += 20;
-  // }
-
-  scrollRight(el: Element) {
-    const animTimeMs = 400;
-    const pixelsToMove = 315;
-    const stepArray = [0.001, 0.021, 0.136, 0.341, 0.341, 0.136, 0.021, 0.001];
-    interval(animTimeMs / 8)
-      .pipe(
-        takeWhile(value => value < 8),
-        tap(value => el.scrollLeft += (pixelsToMove * stepArray[value])),
-      )
-      .subscribe();
-  }
-
-  scrollLeft(el: Element) {
-    const animTimeMs = 400;
-    const pixelsToMove = 315;
-    const stepArray = [0.001, 0.021, 0.136, 0.341, 0.341, 0.136, 0.021, 0.001];
-    interval(animTimeMs / 8)
-      .pipe(
-        takeWhile(value => value < 8),
-        tap (value => el.scrollLeft -= (pixelsToMove * stepArray[value])),
-      )
-      .subscribe();
+    moveItemInArray(this.timePeriods, event.previousIndex, event.currentIndex);
   }
 
   ngOnInit(): void {
     this.spinner.show();
     this.retrieveSocialMediProfile();
     this.spinner.hide();
-    this.timeline = [
-      {heading: "My Tweets", data:[""] },
-      {heading: "Facebook", data:[""] },
-      {heading: "LinkedIn", data:[""] },
-      {heading: "Whatsapp", data:[""] },
-      {heading: "Youtube", data:[""] },
-    ]
   }
 
   retrieveSocialMediProfile() {
     if (this.manageaccountService.userSocialProfile.email) {
-      this.processSocialMediaProfile();
+      this.userSocialProfile = this.manageaccountService.userSocialProfile;
+      this.processSocialDropdown();
     } else {
       this.manageaccountService.retrieveSocialMediaProfile().subscribe(res => {
+        this.userSocialProfile = res.data as SocialProfile;
         this.manageaccountService.userSocialProfile = res.data as SocialProfile;
-        this.processSocialMediaProfile();
+        this.processSocialDropdown();
       });
     }
   }
 
-  processSocialMediaProfile() {
-    this.socialProfiles = [];
-    this.manageaccountService.userSocialProfile?.socialMedia?.forEach(scMedia => {
-      if (scMedia.name == 'twitter') {
-        this.socialProfiles.push({ socialId: `${scMedia.userId}`, socialName: ''+scMedia.screenName });
+  processSocialDropdown() {
+    this.dropdownList = [];
+    this.userSocialProfile?.socialMedia?.forEach(scMedia => {
+      if (scMedia.name == 'facebook') {
+        scMedia.fbpages?.forEach(fbpage => {
+          this.dropdownList.push({ socialId: `facebook-${scMedia.userId}-${fbpage.id}`, socialName: fbpage.name });
+        });
+      } else if (scMedia.name == 'twitter') {
+        this.dropdownList.push({ socialId: `twitter-${scMedia.userId}`, socialName: scMedia.screenName });
       }
-    })
-  }
-
-
-  retrieveTwitterTimeline(userId: string) {
-    this.twitterService.retrieveTweets(userId).subscribe((res: any) => {
-      console.log(res.data);
     })
   }
 }

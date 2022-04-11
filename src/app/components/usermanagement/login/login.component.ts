@@ -1,23 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/usermanagement/auth.service';
 import { Router } from '@angular/router';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ProfileService } from 'src/app/services/usermanagement/profile.service';
 import { NgxSpinnerService } from "ngx-spinner";
-import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
-import Amplify from '@aws-amplify/core'
-import Auth from '@aws-amplify/core'
-
-Amplify.configure({
-  Auth: {
-    region: 'ap-south-1',
-    userPoolId:'ap-south-1_E9iIJo51T',
-    userPoolWebClientId:'7g57fn2i2m24nps24sko7cpuio',
-    authenticateFlowType: ''
-  }
-})
-
 
 @Component({
   selector: 'app-login',
@@ -25,7 +12,7 @@ Amplify.configure({
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  images = ['https://aikyne-mediafiles.s3.ap-south-1.amazonaws.com/loginImages/1055.png', 'https://aikyne-mediafiles.s3.ap-south-1.amazonaws.com/loginImages/image_1.png', 'https://aikyne-mediafiles.s3.ap-south-1.amazonaws.com/loginImages/image_2.png','https://aikyne-mediafiles.s3.ap-south-1.amazonaws.com/loginImages/image_3.png','https://aikyne-mediafiles.s3.ap-south-1.amazonaws.com/loginImages/image_4.png'];
+
   public remember: boolean = false;
   login: FormGroup;
   loginUserData = { username: '', password: '' }
@@ -33,30 +20,17 @@ export class LoginComponent implements OnInit {
   fieldTextType: boolean = false;
   public errormessage: boolean = false;
   public clicked: boolean = false;
-  newPassword!: String;
-  //sitekey:string;
+
 
   constructor(private _auth: AuthService,
     private _router: Router,
     private profileService: ProfileService,
     private toastr: ToastrService,
-    //private formBuilder: FormBuilder,
-    private spinner: NgxSpinnerService,
-    config: NgbCarouselConfig) {
+    private spinner: NgxSpinnerService) {
     this.login = new FormGroup({
       username: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
-      password: new FormControl('', [Validators.required, Validators.pattern("((?=.)(?=.*[a-z])(?=.*[A-Z])).{8,}"), Validators.minLength(8)]),
-      recaptcha : new FormControl('', Validators.required)
-    });
-
-    // {
-    //  this.sitekey='6LdgtKYaAAAAACZTsh49b-leT_5tUhCdYmVNzwxB';
-
-   // }
-   config.interval = 2000;
-   config.keyboard = true;
-   config.pauseOnHover = false;
-
+      password: new FormControl('', [Validators.required, Validators.pattern("((?=.)(?=.*[a-z])(?=.*[A-Z])).{8,}"), Validators.minLength(8)])
+    })
   }
 
 
@@ -90,6 +64,7 @@ export class LoginComponent implements OnInit {
       this.login.controls['password'].disable();
       this.buttonname = 'SIGNING IN'
       this.clicked = true;
+
       this._auth.loginUser(this.loginUserData)
         .subscribe(
           res => {
@@ -114,8 +89,6 @@ export class LoginComponent implements OnInit {
 
   }
 
-  
-
   signInWithGoogle(): void {
     this._auth.signInWithGoogle().then(googleResponse => {
       const socialUsr = {
@@ -138,20 +111,13 @@ export class LoginComponent implements OnInit {
 
   signInWithFB(): void {
     this._auth.signInWithFB().then(fbResponse => {
-      console.log(fbResponse);
       const socialUsr = {
         firstName: fbResponse.firstName,
         lastName: fbResponse.lastName,
         email: fbResponse.email,
         socialLogin: 'facebook'
       }
-      this._auth.registerSocialUser(socialUsr).subscribe(res => {
-        if (res.status == 'User not registered with Social Media') {
-          this.toastr.error('Login Attempt Failed', 'User is not registered through Facebook.');
-        } else {
-          this.setUserToken(res);
-        }
-      })
+      this._auth.registerSocialUser(socialUsr)
     });
   }
 
@@ -167,8 +133,6 @@ export class LoginComponent implements OnInit {
     if (!!apiResponse.data.changePassword) {
       this._router.navigate([`passwordupdate`])
     } else {
-    localStorage.setItem('canupdate', 'true');
-
       this._router.navigate([`home/${apiResponse.data.id}/dashboard`])
     }
 

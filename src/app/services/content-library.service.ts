@@ -1,4 +1,4 @@
-import { HttpClient, HttpEventType, HttpHeaders } from '@angular/common/http';
+import { HttpBackend, HttpClient, HttpEventType, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -9,18 +9,17 @@ import { ApiResponse } from '../model/ApiResponse';
 })
 export class ContentLibraryService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private handler: HttpBackend) { }
 
 
 
-  uploadImages(folderName = '', extension = 'jpg', fileName = '') {
-    return this.http.get<ApiResponse>(`${environment.contentManagement}/uploadMedia?ext=${extension}&folder=${folderName}&fName=${fileName}`);
+  uploadImages(extension = 'jpg') {
+    return this.http.get<ApiResponse>(`${environment.contentManagement}/uploadMedia?ext=${extension}`);
   }
 
-  retrieveImages(folderName = 'tempFolder', searchQuery = null, filterQuery = null) {
-    const searchString = searchQuery ? `&q=${searchQuery}` : ''
-    const filterString = filterQuery ? `&filterBy=${filterQuery}` : ''
-    return this.http.get<ApiResponse>(`${environment.contentManagement}/retrieveMediaList?folder=${folderName}${searchString}${filterString}`);
+  retrieveImages() {
+    return this.http.get<ApiResponse>(`${environment.contentManagement}/retrieveMediaList`);
   }
 
   uploadActualImage(uri: string, file: File) {
@@ -49,8 +48,8 @@ export class ContentLibraryService {
     return this.http.post<any>(`${environment.contentManagement}/uploadTwitterMedia`, bodyObj);
   }
 
-  removeMedia(mediaKey: string[]) {
-    return this.http.post<any>(`${environment.contentManagement}/removeMedia`, {mediaKey});
+  removeMedia(mediaKey: string) {
+    return this.http.get<any>(`${environment.contentManagement}/removeMedia?mediaKey=${mediaKey}`);
   }
 
 }

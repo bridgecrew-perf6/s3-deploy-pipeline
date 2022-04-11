@@ -4,6 +4,8 @@ import { SocialAuthService } from 'angularx-social-login';
 import { AuthService } from './services/usermanagement/auth.service';
 import { ProfileService } from './services/usermanagement/profile.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/model/user';
 import { SocialDropDown, SocialProfile } from 'src/app/model/socialProfile';
 import { TwitterService } from 'src/app/services/socialmedia/twitter.service';
@@ -40,19 +42,21 @@ export class AppComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     public authServiceAK: AuthService,
+    private authService: SocialAuthService,
     public profileService: ProfileService,
     private twitterService: TwitterService,
     private manageaccountService: ManageaccountService,
+    private spinner: NgxSpinnerService,
+    private toastr: ToastrService,
     private fb: FacebookService,
     @Inject(PLATFORM_ID) private platformId: Object) { }
 
 
   ngOnInit(): void {
     // uncomment for prod deployment
-    setTimeout(() => {
-      this.facebookInit();
-    }, 500);
+    this.facebookInit();
     if (this.router.url.indexOf('socialManage/twitterSignUp') != -1) {
       const urlParams = new URLSearchParams(this.router.url);
       const retToken = urlParams.get('retToken');
@@ -66,9 +70,11 @@ export class AppComponent implements OnInit {
       this.profileService.retrieveUserProfile().subscribe(res => {
         this.profileService.userData = res.data;
         this.retrieveSocialMediProfile();
+        this.spinner.hide();
       });
     } else {
       this.retrieveSocialMediProfile();
+      this.spinner.hide();
     }
   }
 
@@ -80,7 +86,7 @@ export class AppComponent implements OnInit {
     console.log('FB Init called')
     if (isPlatformBrowser(this.platformId)) {
       let initParams: InitParams = {
-        appId: '173379087570136',
+        appId: '125112632754235',
         xfbml: true,
         version: 'v2.8'
       };

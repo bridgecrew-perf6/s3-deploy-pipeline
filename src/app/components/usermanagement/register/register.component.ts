@@ -5,80 +5,86 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ProfileService } from 'src/app/services/usermanagement/profile.service';
-import { DataTransferService } from 'src/app/services/data-transfer.service';
-import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
-
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
 
-  registerUserData = { firstName: '', lastName: '', email: '', password: '' }
+  registerUserData = {firstName: '', lastName: '', email: '', password: ''}
   msg: string | undefined;
   public errormsg: boolean = false;
-  images = ['https://aikyne-mediafiles.s3.ap-south-1.amazonaws.com/loginImages/1055.png', 'https://aikyne-mediafiles.s3.ap-south-1.amazonaws.com/loginImages/image_1.png', 'https://aikyne-mediafiles.s3.ap-south-1.amazonaws.com/loginImages/image_2.png','https://aikyne-mediafiles.s3.ap-south-1.amazonaws.com/loginImages/image_3.png','https://aikyne-mediafiles.s3.ap-south-1.amazonaws.com/loginImages/image_4.png'];
-
-
+  
 
   login: FormGroup;
 
   constructor(private _auth: AuthService,
-    private _router: Router,
-    private toastr: ToastrService,
+    private _router: Router,private toastr: ToastrService,
     private spinner: NgxSpinnerService,
-    private profileService: ProfileService,
-    private dataTransferService: DataTransferService) {
-    this.login = new FormGroup({
-      fname: new FormControl('', Validators.required),
-      lname: new FormControl('', Validators.required),
-      email: new FormControl('', [Validators.required, Validators.email, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
-      password: new FormControl('', [Validators.required, Validators.pattern("((?=.)(?=.*[a-z])(?=.*[A-Z])).{8,}"), Validators.minLength(8)])
-    })
-  }
+    private profileService: ProfileService,)
+      { this.login = new FormGroup({
+        fname: new FormControl ('', Validators.required),
+        lname: new FormControl ('', Validators.required),
+        email: new FormControl ('', [Validators.required, Validators.email,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+        password: new FormControl ('',[Validators.required, Validators.pattern("((?=.)(?=.*[a-z])(?=.*[A-Z])).{8,}"), Validators.minLength(8)])
+      })
+     }
 
-  OnSubmit() {
-    if (this.login.valid) {
+
+     
+
+
+     OnSubmit()
+  {
+    if(this.login.valid)
+    {
       console.log(this.validate());
     }
   }
-  validate() {
+  validate()
+  {
     return this.login.value;
   }
 
-  registerUser() {
-    if ((this.registerUserData.firstName == '' && this.registerUserData.lastName == '' && this.registerUserData.email == '' && this.registerUserData.password == '')
-      || (this.registerUserData.firstName == '') || (this.registerUserData.lastName == '') ||
-      (this.registerUserData.email == '') || (this.registerUserData.password == '')) {
+
+  ngOnInit(): void {
+  }
+  registerUser()
+  {
+    
+    if((this.registerUserData.firstName == '' && this.registerUserData.lastName == '' && this.registerUserData.email == '' && this.registerUserData.password == '')
+    || (this.registerUserData.firstName == '') || (this.registerUserData.lastName == '') || 
+    (this.registerUserData.email == '') || (this.registerUserData.password == ''))
+    {
       this.errormsg = true;
       this.spinner.hide();
     }
-    else {
-      this.spinner.show();
-      this._auth.registerUser(this.registerUserData)
-        .subscribe(
-          res => {
-            /* console.log(res)
-            localStorage.setItem('token', res.token);
-            localStorage.setItem('userRefToken', res.data.id);
-            localStorage.setItem('userToken', btoa(`${this.registerUserData.email}:password`)); */
-            this.dataTransferService.userEmail = this.registerUserData.email;
-            this.spinner.hide()
-            this._router.navigate([`emailconfirmation`])
-            //this._router.navigate([`home/${res.data.id}/dashboard`])
-          },
-          err => {
-            console.log(err)
-            this.spinner.hide();
-            this.toastr.error('User already exists', 'Register Attempt Failed');
-            this._router.navigate(['/login'])
-          })
+    else
+    {
+    this.spinner.show();
+    this._auth.registerUser(this.registerUserData)
+    .subscribe(
+      res => {
+        console.log(res)
+        localStorage.setItem('token', res.token);
+        localStorage.setItem('userRefToken', res.data.id);
+        localStorage.setItem('userToken', btoa(`${this.registerUserData.email}:password`));
+        this.spinner.hide()
+        this._router.navigate([`home/${res.data.id}/dashboard`])
+      },
+      err =>
+      {
+        console.log(err)
+        this.spinner.hide();
+        this.toastr.error('User already exists','Register Attempt Failed');
+        this._router.navigate(['/login'])
+      })
 
-
-    }
+      
   }
+}
 
   signInWithGoogle(): void {
     this._auth.signInWithGoogle().then(googleResponse => {
@@ -127,8 +133,8 @@ export class RegisterComponent {
     }
 
 
+  
 
-
-  }
+}
 }
 

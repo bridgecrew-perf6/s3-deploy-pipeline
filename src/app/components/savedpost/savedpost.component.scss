@@ -1,51 +1,24 @@
-.lengthPosition
-{
-  position: relative;
-  top: 0;
-  left: -17%;
-  margin-top: -1px;
-  font-size: 17px;
-  height: auto;
-  width: 10px;
+.circle-icon {
+  color: white;
+  background: #1da1f2;
+  padding: 10px;
+  border-radius: 50%;
 }
 
-.footer-container {
-  position: fixed;
-  margin-left: 50px;
-  bottom: 0;
-  width: 100%; 
-  
-}
-.footer-content {
-  margin-right: 1000px
-}
-.matTable
-{
-  td
-  {
-    text-align: left;
-  }
-}
-.deleteButton
-{
-  opacity: 0;
-  font-size: 16px;
-  padding-left: 15px;
-  // color: rgb(134, 134, 134);
-}
-.matTable
-{
-  tr:hover
-  {
-    .deleteButton
-    {
-      opacity: 1;
-    }
-  }
+.card {
+  margin: 0.5rem 0;
+  border-radius: 5px;
+  border-left: 1rem solid lightgray;
 }
 
-.horizontal-bar{
-  width: 100%;
-  margin-top: 0rem;
-  margin-bottom: 1rem;
+.imageDiv {
+  text-align: center;
+  margin: auto;
+
+
+  .publishedImage {
+    width: 150px;
+    height: 80px;
+    border-radius: 1rem;
+  }
 }

@@ -9,7 +9,6 @@ import { ToastrService } from 'ngx-toastr';
 import { SocialDropDown, SocialProfile } from 'src/app/model/socialProfile';
 import { ManageaccountService } from 'src/app/services/manageaccount.service';
 import { FacebookAKService } from 'src/app/services/socialmedia/facebook.ak.service';
-import { LinkedinService } from 'src/app/services/socialmedia/linkedin.service';
 import { TwitterService } from 'src/app/services/socialmedia/twitter.service';
 import { ProfileService } from 'src/app/services/usermanagement/profile.service';
 import { PagesComponent } from '../../dialog/facebookPages/pages/pages.component';
@@ -46,7 +45,6 @@ export class ManageaccountComponent implements OnInit {
     public profileService: ProfileService,
     private twitterService: TwitterService,
     private facebookAKService: FacebookAKService,
-    private linkedinService: LinkedinService,
     private spinner: NgxSpinnerService) {
 
   }
@@ -56,12 +54,18 @@ export class ManageaccountComponent implements OnInit {
     this.retrieveSocialMediProfile();
   }
 
+
   retrieveSocialMediProfile() {
-    this.manageaccountService.retrieveSocialMediaProfile().subscribe(res => {
-      this.userSocialProfile = res.data as SocialProfile;
-      this.manageaccountService.userSocialProfile = res.data as SocialProfile;
+    if (this.manageaccountService.userSocialProfile.email) {
+      this.userSocialProfile = this.manageaccountService.userSocialProfile;
       this.processSocialDropdown();
-    });
+    } else {
+      this.manageaccountService.retrieveSocialMediaProfile().subscribe(res => {
+        this.userSocialProfile = res.data as SocialProfile;
+        this.manageaccountService.userSocialProfile = res.data as SocialProfile;
+        this.processSocialDropdown();
+      });
+    }
   }
 
   processSocialDropdown() {
@@ -69,19 +73,10 @@ export class ManageaccountComponent implements OnInit {
     this.userSocialProfile?.socialMedia?.forEach(scMedia => {
       if (scMedia.name == 'facebook') {
         scMedia.fbpages?.forEach(fbpage => {
-          this.dropdownList.push({ socialType: 'facebook', userId: scMedia.userId, pageId: fbpage.id, socialName: fbpage.name, socialImage: fbpage.userProfileImage, tagIcon:'facebook' });
+          this.dropdownList.push({ socialType: 'facebook', userId: scMedia.userId, pageId: fbpage.id, socialName: fbpage.name });
         });
-      } else if (scMedia.name == 'linkedin') {
-        if (scMedia.linkedinProfile) {
-          this.dropdownList.push({ socialType: scMedia.name, userId: scMedia.userId, socialName: scMedia.linkedinProfile.userName, socialImage: scMedia.linkedinProfile.userImage, tagIcon:'linkedin' });
-        }
-        if (scMedia.linkedinPages) {
-          scMedia.linkedinPages?.forEach(lnPage => {
-            this.dropdownList.push({ socialType: scMedia.name, pageId: lnPage.pageId || lnPage.userId, socialName: lnPage.pageName || lnPage.userName, socialImage:lnPage.pageImage?lnPage.pageImage:'../../../../assets/img/Linkedin.svg', tagIcon:'building' })
-          })
-        }
-      } else {
-        this.dropdownList.push({ socialType: scMedia.name, userId: scMedia.userId, socialName: scMedia.screenName, socialImage: scMedia.userProfileImage, tagIcon:'twitter' });
+      } else if (scMedia.name == 'twitter') {
+        this.dropdownList.push({ socialType: 'twitter', userId: scMedia.userId, socialName: scMedia.screenName });
       }
     })
     this.spinner.hide();
@@ -106,8 +101,6 @@ export class ManageaccountComponent implements OnInit {
       this.connectTwitter();
     } else if (socialData.socialType == 'twitter') {
       this.facebookLogin();
-    } else if (socialData.socialType == 'linkedin') {
-      this.registerLinkedIn();
     }
   }
 
@@ -118,12 +111,6 @@ export class ManageaccountComponent implements OnInit {
       //   const oauth_token_secret = urlParams.get('oauth_token_secret');
       window.location.href = `https://api.twitter.com/oauth/authorize?oauth_token=${oauth_token}&force_login=1`;
     });
-  }
-
-  registerLinkedIn() {
-    this.linkedinService.getRedirectUrl().subscribe( res => {
-      window.location.href = res.data;
-    })
   }
 
 
@@ -173,12 +160,10 @@ export class ManageaccountComponent implements OnInit {
             return this.facebookAKService.saveUserPages(userId, selectedPages).toPromise();
           })
           .then((response) => {
-            this.toastr.success(response.status);
-            this.modalService.dismissAll();
+            console.log(response);
           })
           .catch(() => {
-            this.toastr.error('Error in connecting your social account. Please contact helpdesk');
-            this.modalService.dismissAll();
+            // NOP
           });
       })
       .catch(e => console.log(e));

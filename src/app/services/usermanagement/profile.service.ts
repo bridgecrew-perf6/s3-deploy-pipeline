@@ -8,19 +8,12 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class ProfileService {
-  getCountryList() {
-    throw new Error('Method not implemented.');
-  }
 
   userData: User = new User();
 
   constructor(private http: HttpClient) { }
 
-  retrieveUserProfile() {
+  retrieveUserProfile(){
     return this.http.get<any>(`${environment.userManagement}/retrieveUser`)
-  }
-
-  updateSUrlIntegration(integration: string) {
-    return this.http.post<any>(`${environment.userManagement}/updateSUrlDomain`, { integration })
   }
 }

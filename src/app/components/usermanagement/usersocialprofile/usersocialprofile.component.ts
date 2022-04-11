@@ -70,11 +70,9 @@ export class UsersocialprofileComponent implements OnInit {
         scMedia.fbpages?.forEach(fbpage => {
           this.dropdownList.push({ socialId: `facebook-${scMedia.userId}-${fbpage.id}`, socialName: fbpage.name });
         });
-      } else {
-        this.dropdownList.push({ socialId: `${scMedia.name}-${scMedia.userId}`, socialName: scMedia.screenName });
+      } else if (scMedia.name == 'twitter') {
+        this.dropdownList.push({ socialId: `twitter-${scMedia.userId}`, socialName: scMedia.screenName });
       }
-
-
     })
     this.spinner.hide();
   }

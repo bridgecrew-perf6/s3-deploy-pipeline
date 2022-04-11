@@ -1,5 +1,6 @@
 import { HttpClient, HttpEventType, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
 import { ApiResponse } from 'src/app/model/ApiResponse';
 import { environment } from 'src/environments/environment';
 import { HttpBackend } from '@angular/common/http'
@@ -35,16 +36,6 @@ export class TwitterService {
     return this.http.post<any>(`${environment.socialMedia}/scheduleSocialPost`, { schedulePostData });
   }
 
-  socialMediaUpdate(socialMedia: string, action: string, postId: string, userId: string) {
-    return this.http.post<ApiResponse>(`${environment.socialMedia}/socialMediaStatusUpdate`, { socialMedia, action, postId, userId });
-  }
-  socialMediaReply(socialMedia: string, action: string, postId: string, userId: string) {
-    return this.http.post<any>(`${environment.socialMedia}/postSocial`, { socialMedia, action, postId, userId  });
-  }
-
-  retrieveAllPublishedPost(showdraft = false, showPublished = false, showScheduled = false) {
-    return this.http.get<ApiResponse>(`${environment.socialMedia}/retrieveUserTimeline?draft=${showdraft}&publised=${showPublished}&scheduled=${showScheduled}`);            
-  }
 
   retrieveAllSocialPost(showdraft = false, showPublished = false, showScheduled = false) {
     return this.http.get<ApiResponse>(`${environment.socialMedia}/retrieveAllPost?draft=${showdraft}&publised=${showPublished}&scheduled=${showScheduled}`);
@@ -54,25 +45,8 @@ export class TwitterService {
     return this.http.get<ApiResponse>(`${environment.socialMedia}/retrieveSavedPost?postId=${postId}&postStatus=${postStatus}`);
   }
 
-  deletePost(postIds: string[], postStatus: string) {
-    return this.http.post<ApiResponse>(`${environment.socialMedia}/deletePost`, { postId: postIds, postType: postStatus });
-  }
-
-  // retreivePostFromWeb(socialMedia: string, postId: string) {
-  //   return this.http.post<ApiResponse>(`${environment.socialMedia}/retrievePostWeb `, { socialMedia, postId });
-  // }
-
-  retreivePostFromWeb(socialMedia: string, postId: string, userId: string) {
-    return this.http.post<ApiResponse>(`${environment.socialMedia}/retrievePostWeb `, { socialMedia, postId, userId });
-  }
-
-
-  retrieveTweets(twitterId: string) {
-    return this.http.get<ApiResponse>(`${environment.socialMedia}/twr/retrieveTweets?userId=${twitterId}`);
-  }
-
-  deletePostFromWeb(requestData: any) {
-    return this.http.post<ApiResponse>(`${environment.socialMedia}/deletePostWeb`, requestData);
+  deletePost(postId: string, postStatus: string) {
+    return this.http.get<ApiResponse>(`${environment.socialMedia}/deletePost?postId=${postId}&postType=${postStatus}`);
   }
 
 }

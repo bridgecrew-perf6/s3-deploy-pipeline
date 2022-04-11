@@ -28,5 +28,4 @@ export class User {
   timeformat?: string;
   distformat?: string;
   FDOW?: string;
-  integration?: any;
 }

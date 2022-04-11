@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup , AbstractControl, Validators, FormControl} from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { SocialDropDown, SocialProfile } from 'src/app/model/socialProfile';
 import { ManageaccountService } from 'src/app/services/manageaccount.service';
 import { ProfileService } from 'src/app/services/usermanagement/profile.service';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-addmember',
@@ -12,74 +11,29 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AddmemberComponent implements OnInit {
 
-  login: FormGroup;
-  public delete: boolean = false;
-  
+  name = 'Angular';
+  firstName = '';
+
+  public msg: boolean = false;
   userSocialProfile: SocialProfile | undefined;
-  
+  productForm: FormGroup;
   public dropdownList: SocialDropDown[] = [];
-  emailRegex ='';
 
   constructor(
     public profileService: ProfileService,
     private manageaccountService: ManageaccountService,
-    private fb: FormBuilder,
-    private toastr: ToastrService) {
-      this.login = new FormGroup({
-        firstname: new FormControl (''),
-        lastname: new FormControl (''),
-        email: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
-      });
-    }
-    
-    
-  
+    private fb: FormBuilder) {
+    this.productForm = this.fb.group({
+      name: '',
+      members: this.fb.array([]),
+    });
+  }
 
-    dynamicArray = [] as any;  
-    newDynamic: any = {};  
-    ngOnInit(): void {  
-        this.newDynamic = 
-        { firstname: "",lastname: "",email: "" };  
-        this.dynamicArray.push(this.newDynamic);  
- 
-    }  
+  ngOnInit(): void {
+    this.retrieveSocialMediProfile()
+  }
 
-    
-    OnSubmit() {
-      if (this.login.valid) {
-        return this.login.value;
 
-      }
-    }
-
-    addRow() {    
-      if(this.login.invalid)
-      {
-        this.toastr.error('All rows must be added','Empty rows')
-        
-        
-      }
-      else if(!this.login.invalid)
-      {
-        this.newDynamic = {firstname: "", lastname: "",email:""};  
-        this.dynamicArray.push(this.newDynamic);  
-        this.toastr.success('New row added successfully', 'New Row');  
-        console.log(this.dynamicArray);  
-        
-      }  
-    }  
-      
-    deleteRow(index: any) {  
-      if(this.dynamicArray.length == 1) {  
-        this.toastr.error("Can't delete the row when there is only one row", 'Warning');  
-          return false;  
-      } else {  
-          this.dynamicArray.splice(index, 1);  
-          this.toastr.warning('Row deleted successfully', 'Delete row');  
-          return true;  
-      }  
-        
-    }  
 
   retrieveSocialMediProfile() {
     if (this.manageaccountService.userSocialProfile.email) {
@@ -94,8 +48,6 @@ export class AddmemberComponent implements OnInit {
     }
   }
 
-
-
   processSocialDropdown() {
     this.dropdownList = [];
     this.userSocialProfile?.socialMedia?.forEach(scMedia => {
@@ -109,6 +61,28 @@ export class AddmemberComponent implements OnInit {
     })
   }
 
-  
+  members(): FormArray {
+    return this.productForm.get("members") as FormArray
+  }
 
+  newQuantity(): FormGroup {
+    return this.fb.group({
+      fname: '',
+      lname: '',
+      email: ''
+    })
+  }
+
+  addQuantity() {
+    var check = this.members().value;
+    this.members().push(this.newQuantity());
+  }
+
+  removeQuantity(i: number) {
+    this.members().removeAt(i);
+  }
+
+  onSubmit() {
+    console.log(this.productForm.value);
+  }
 }

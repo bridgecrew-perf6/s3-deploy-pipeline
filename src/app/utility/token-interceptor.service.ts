@@ -14,7 +14,7 @@ export class TokenInterceptorService implements HttpInterceptor {
     private router: Router) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (req.url.startsWith('https://aikyne-mediafiles.s3.ap-south-1.amazonaws.com/')) {
+    if (req.url.startsWith('https://storefires-mediafiles.s3.ap-south-1.amazonaws.com')) {
       return next.handle(req).pipe(tap(() => { },
         (err: any) => {
           this.handleAuthError(err);

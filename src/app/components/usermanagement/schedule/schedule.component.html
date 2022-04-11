@@ -1,0 +1,82 @@
+<div class="container-fluid">
+  <br />
+  <div class="row">
+    <div class=" col-sm-2 " style="background-color: white;">
+
+      
+    </div>
+
+    <div class="col-md-10 leftborder">
+      <div class="btn-group">
+        <span style="padding: 10px;" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
+          (viewDateChange)="closeOpenMonthViewDay()">
+          <i class="left fas fa-chevron-circle-left fa-2x"></i>
+        </span>
+
+        <button class="btn button" mwlCalendarToday [(viewDate)]="viewDate">
+          Today
+        </button>
+
+
+        <span style="padding: 10px;" mwlCalendarNextView class="arrow" [view]="view" [(viewDate)]="viewDate"
+          (viewDateChange)="closeOpenMonthViewDay()">
+          <i class="left fas fa-chevron-circle-right fa-2x"></i>
+        </span>
+
+      </div>
+
+
+      <div class="btn-group">
+        <h3 style="padding: 10px;">{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+      </div>
+      <div class="btn-group" style="float: right;">
+        <div class="switchbutton" (click)="setView(CalendarView.Month)" [class.active]="view === CalendarView.Month">
+          Month
+        </div>
+        <div class="switchbutton" (click)="setView(CalendarView.Week)" [class.active]="view === CalendarView.Week">
+          Week
+        </div>
+        <div class="switchbutton1" (click)="setView(CalendarView.Day)" [class.active]="view === CalendarView.Day">
+          Day
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-2 " style="background-color: white; padding: 15px;">
+      
+      <span style="font-weight: bold;"> Filter by Social Profile </span>
+      
+      
+      <div *ngFor="let data of dropdownList">
+        <input type="checkbox" (change)="filterCalendar()" [(ngModel)]="data.checked" name="socialFilter" id="{{data.userId}}"> &nbsp;
+        <i style="color: #4c9bef;" class="fab fa-twitter fa-lg circle-icon" *ngIf="data.socialType == 'twitter'"> </i>
+        <i style="color: #4064ac;" class="fab fa-facebook fa-lg circle-icon" *ngIf="data.socialType == 'facebook'"> </i>
+         {{data.socialName}} 
+      </div>
+    </div>
+
+ 
+
+    <div class="col-sm-10 leftborder">
+      <div [ngSwitch]="view">
+        <mwl-calendar-month-view style="color: #4DABFF;" *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate"
+          [events]="events" [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen"
+          (dayClicked)="dayClicked($event.day)" (eventClicked)="handleEvent('Clicked', $event.event)"
+          (eventTimesChanged)="eventTimesChanged($event)">
+        </mwl-calendar-month-view>
+        <mwl-calendar-week-view style="color: #4DABFF;" *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate"
+          [events]="events"  [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)"
+          (eventTimesChanged)="eventTimesChanged($event)">
+        </mwl-calendar-week-view>
+        <mwl-calendar-day-view style="color: #4DABFF;" *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate"
+          [events]="events" [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)"
+          (eventTimesChanged)="eventTimesChanged($event)">
+        </mwl-calendar-day-view> <br/>
+      </div>
+
+    </div>
+
+  </div>
+
+
+</div>

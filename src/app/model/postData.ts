@@ -10,7 +10,4 @@ export class PostData {
   postData?: string;
   id?: string;
   mediaUrl?: [string];
-  mediaData?: [any];
-  createdTime?: string;
-  updatedTime?: string;
 }
