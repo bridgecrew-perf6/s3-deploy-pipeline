@@ -3,10 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  userManagement: 'https://ricq54ie69.execute-api.ap-south-1.amazonaws.com/Dev/user',
-  socialMedia:'https://ricq54ie69.execute-api.ap-south-1.amazonaws.com/Dev/manageSM',
-  contentManagement:'https://ricq54ie69.execute-api.ap-south-1.amazonaws.com/Dev/cm'
+  production: false
 };
 
 /*
