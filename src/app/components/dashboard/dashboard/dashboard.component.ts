@@ -24,7 +24,7 @@ export class DashboardComponent implements OnInit {
   public now: Date = new Date();
   scheduleTime = '';
   userId: any;
-
+  value: any;
   count = 0;
 
   public min = new Date();
@@ -42,11 +42,11 @@ export class DashboardComponent implements OnInit {
   selectedPostingPage = '';
   tweetLength = 280;
   isEmojiPickerVisible = false;
- 
+
 
   postId = '';
   postStatus = '';
-  
+
 
   selectedFile!: File;
   public showdrag: boolean = false;
@@ -198,50 +198,49 @@ export class DashboardComponent implements OnInit {
       this.toastr.error("Maximum of only 4 Media files can be uploaded");
       return;
     }
-   
+
     this.files = this.files.concat(files);
     for (const droppedFile of files) {
       // Is it a file?
-      
-      
-      if (droppedFile.fileEntry.isFile ) {
-       
-        
-        
-        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => 
-        {
-          if(this.isFileSizeAllowed(file.size)){
-          // Here you can access the real file
-          console.log(droppedFile.relativePath, file);
-          this.mediaData.push({'fileDisplayName': droppedFile.relativePath, 'progressStatus': '0' })
-          this.contentlibraryService.uploadImages(file.name.split('.').pop()).subscribe((res: any) => {
-            this.contentlibraryService.uploadActualImage(res.data, file).subscribe(uploadres => {
-              (droppedFile as any)['progressPercentage'] = (uploadres && uploadres.message) ? uploadres.message : 0;
-             
-              if (uploadres && uploadres.message && uploadres.message == '100') {
-                (droppedFile as any)['progressStatus'] = 'Done';
-                (droppedFile as any)['fileKey'] = res.fileName;
-                this.count ++;
 
-                var foundIndex = this.mediaData.findIndex(fl => fl.fileDisplayName == droppedFile.relativePath);
-                const updatedFile = this.mediaData[foundIndex];
-                updatedFile['progressStatus'] = 'Done';
-                updatedFile['fileKey'] = res.fileName;
-                updatedFile['fileUrl'] = res.data.split('?')[0];
-                this.mediaData[foundIndex] = updatedFile;
-              }
+
+      if (droppedFile.fileEntry.isFile) {
+
+
+
+        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
+        fileEntry.file((file: File) => {
+          if (this.isFileSizeAllowed(file.size)) {
+            // Here you can access the real file
+            console.log(droppedFile.relativePath, file);
+            this.mediaData.push({ 'fileDisplayName': droppedFile.relativePath, 'progressStatus': '0' })
+            this.contentlibraryService.uploadImages(file.name.split('.').pop()).subscribe((res: any) => {
+              this.contentlibraryService.uploadActualImage(res.data, file).subscribe(uploadres => {
+                (droppedFile as any)['progressPercentage'] = (uploadres && uploadres.message) ? uploadres.message : 0;
+
+                if (uploadres && uploadres.message && uploadres.message == '100') {
+                  (droppedFile as any)['progressStatus'] = 'Done';
+                  (droppedFile as any)['fileKey'] = res.fileName;
+                  this.count++;
+
+                  var foundIndex = this.mediaData.findIndex(fl => fl.fileDisplayName == droppedFile.relativePath);
+                  const updatedFile = this.mediaData[foundIndex];
+                  updatedFile['progressStatus'] = 'Done';
+                  updatedFile['fileKey'] = res.fileName;
+                  updatedFile['fileUrl'] = res.data.split('?')[0];
+                  this.mediaData[foundIndex] = updatedFile;
+                }
+              });
             });
-          });
-          
-        }
-        else{
-          this.toastr.error("Please select a file less than 5MB.");
-        }
-       
-        
+
+          }
+          else {
+            this.toastr.error("Please select a file less than 5MB.");
+          }
+
+
         });
-      
+
       } else {
         // It was a directory (empty directories are added, otherwise only files)
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
@@ -264,7 +263,7 @@ export class DashboardComponent implements OnInit {
       console.log(res);
       this.files = this.files.filter((file: any) => file.fileKey != fileKey);
       this.mediaData = this.mediaData.filter((file: any) => file.fileKey != fileKey);
-      this.count --;
+      this.count--;
 
 
     })
@@ -335,7 +334,7 @@ export class DashboardComponent implements OnInit {
 
   openContentLibraryDialog() {
     const modalRef = this.modalService.open(ContentlibraryComponent, { backdropClass: 'in', windowClass: 'in', size: 'xl', centered: true });
-   
+
   }
 
   saveAsDraft() {

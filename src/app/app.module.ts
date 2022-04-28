@@ -52,7 +52,7 @@ import { BillinginformationComponent } from './components/usermanagement/billing
 import { PersonalinformationComponent } from './components/usermanagement/personalinformation/personalinformation.component';
 import { UsersocialprofileComponent } from './components/usermanagement/usersocialprofile/usersocialprofile.component';
 import { NewtemplateComponent } from './components/template/newtemplate/newtemplate.component';
-
+import { MatIconModule } from '@angular/material/icon';
 
 
 const fbLoginOptions = {
@@ -100,7 +100,7 @@ const googleLoginOptions = {
     NewtemplateComponent,
   ],
   imports: [
-    PickerModule,
+    PickerModule, MatIconModule,
     BrowserModule,
     MatInputModule,
     NgxSpinnerModule,
