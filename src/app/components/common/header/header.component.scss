@@ -1,0 +1,35 @@
+.top-navbar {
+  background: #3282c9;
+
+
+  .brandLogo{
+    width:15rem;
+    font-weight: bold;
+    color: white;
+
+    .brandText{
+      padding: 0 1rem 0 0.5rem;
+    }
+  }
+
+  li.menuText {
+    a {
+      color: white;
+      font-size: 18px;
+      padding: 0 1rem;
+      font-weight:bold;
+    }
+  }
+}
+.dropdown-item
+{
+  i
+  {
+    padding: 4px;
+  }
+}
+
+.dropdown-item
+{
+  word-spacing: 2px;
+}

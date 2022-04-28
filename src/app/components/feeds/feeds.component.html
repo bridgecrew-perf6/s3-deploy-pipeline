@@ -1,0 +1,40 @@
+<div class="container-fluid">
+    <br />
+    <div class="row">
+      <div class=" col-sm-2 bordercolor" style="background-color: white;">
+  
+        <div style="font-weight: bold;">Feeds</div> <br />
+        <div><i class="fas fa-plus-circle"></i> New Board</div>
+        <div><i class="fas fa-search"></i> Twitter quick search</div>
+        <div>&nbsp;</div>
+
+        <div style="border-top: 1px solid grey;">
+            <span style="font-weight: bold;"> My Boards </span>
+            <div *ngFor="let data of dropdownList" style="padding: 10px;">
+               {{data.socialName}} <i style="float: right;" class="fas fa-times"></i>
+            </div>
+        </div>
+      </div>
+  
+      <div class="col-md-10 leftborder">
+            <div >
+                <div style="padding: 10px;">
+                    Twitter: Dev_Aikyne |
+                    <button class="btn color">+ Add Feeds</button> &nbsp;
+                    <button class="btn color">+ Add Social Network</button> &nbsp;
+                    <button class="btn color">Reload</button> |
+                    <button class="btn color">View as: Standard</button>
+                </div>
+            </div>
+
+            <div cdkDropList cdkDropListOrientation="horizontal" class="example-list " (cdkDropListDropped)="drop($event)">
+                <div class="example-box" *ngFor="let timePeriod of timePeriods" cdkDrag>{{timePeriod}}</div>
+            </div>
+      </div>
+  
+    
+  
+  
+    </div>
+  </div>
+  

@@ -1,0 +1,28 @@
+<div class="container-fluid padding">
+    <div class="card">
+        <div class="card-body">
+          <span style="font-weight: bold;">Your channels</span>
+          <span (click)="openSocialModal()"> <a style="float: right;" href="javascript:void(0);">Add channel</a> </span>
+        </div>
+    </div> <br/>
+    <h5>Connected accounts</h5>
+    <div class="card">
+        <div class="card-body">
+        
+            <div *ngFor="let data of dropdownList">
+                <div class="row">
+                    <span class="col-sm-12">
+                      <i class="fa fa-twitter fa-2x circle-icon" *ngIf="data.socialType=='twitter'"></i>
+                      <i class="fa fa-facebook fa-2x circle-icon"*ngIf="data.socialType=='facebook'"></i>
+                       {{data.socialName}}
+                       <span style="float: right;">
+                          <span class="btn" (click)="reconnect(data);">Reconnect &nbsp;<i style="color: blueviolet;" class="fal fa-redo"></i></span>
+                          |
+                          <span class="btn" (click)="removeAccount(data);">Remove &nbsp;<i style="color: red;" class="fal fa-times"></i> </span>
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

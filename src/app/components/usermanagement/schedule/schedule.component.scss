@@ -1,0 +1,62 @@
+.bordercolor
+{
+    border-bottom: 1px solid grey;
+}
+.leftborder
+{
+    border-left: 1px solid grey;
+}
+.socialfilter
+{
+    position: absolute;
+    top: 10%;
+    padding: 20px;
+}
+.filtertext
+{
+    font-size: 20px;
+    padding: 5px;
+    margin: 5px;
+    color: black;
+}
+.button {
+    display: block;
+    margin: 0px auto;
+    height: 40px;
+    background: linear-gradient(to right,#4DABFF ,#62DDFF);
+    color: white;
+    width: 100%;
+    cursor: pointer;
+}
+.switchbutton
+{
+    display: block;
+    margin: 0px auto;
+    border-right: 1px solid black;
+    padding: 10px;
+    background: #4DABFF;
+    color: white;
+    width: 100%;
+    cursor: pointer;
+}
+.switchbutton1
+{
+    display: block;
+    margin: 0px auto;
+    padding: 10px;
+    background: #4DABFF;
+    color: white;
+    width: 100%;
+    cursor: pointer;
+}
+.left
+{
+    background: -webkit-linear-gradient(#4DABFF, #62DDFF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+h3
+{
+    color: #198ff9;
+}

@@ -1,1 +1,299 @@
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
+
+
 /* You can add global styles to this file, and also import other style files */
+
+body, html, .container-fluid
+{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: white;
+    font-size: 15px;
+}
+
+*
+{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* LOGIN PAGES */
+
+:root {
+  --input-padding-x: 1.5rem;
+  --input-padding-y: 1.5rem;
+}
+
+
+
+.form-signin {
+  width: 100%;
+
+ .btn {
+    font-size: 80%;
+    letter-spacing: .1rem;
+    font-weight: bold;
+    padding: 1rem;
+    transition: all 0.2s;
+  }
+}
+
+.form-label-group {
+  position: relative;
+  margin-bottom: 1rem;
+
+  input {
+    height: 50px;
+    text-indent: 20px;
+
+    &::-webkit-input-placeholder {
+      color: grey;
+    }
+
+    &:-ms-input-placeholder {
+      color: grey;
+    }
+
+    &::-ms-input-placeholder {
+      color: grey;
+    }
+
+    &::-moz-placeholder {
+      color: grey;
+    }
+
+    &::placeholder {
+      color: grey;
+
+    }
+
+    &:not(:placeholder-shown)~label {
+      padding-top: calc(var(--input-padding-y) / 3);
+      padding-bottom: calc(var(--input-padding-y) / 3);
+      font-size: 12px;
+      color: #777;
+    }
+  }
+}
+
+.form-label-group>input,
+.form-label-group>label {
+  padding: var(--input-padding-y) var(--input-padding-x);
+}
+
+.form-label-group>label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  margin-bottom: 0;
+  /* Override default `<label>` margin */
+  line-height: 1.5;
+  color: #495057;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  transition: all .1s ease-in-out;
+}
+
+
+
+.btn-google {
+  color: white;
+  background-color: #ea4335;
+}
+
+.btn-facebook {
+  color: white;
+  background-color: white;
+}
+
+/* Fallback for Edge
+-------------------------------------------------- */
+
+@supports (-ms-ime-align: auto) {
+  .form-label-group>label {
+    display: none;
+  }
+  .form-label-group input::-ms-input-placeholder {
+    color: #777;
+  }
+}
+
+/* Fallback for IE
+-------------------------------------------------- */
+
+@media all and (-ms-high-contrast: none),
+(-ms-high-contrast: active) {
+  .form-label-group>label {
+    display: none;
+  }
+  .form-label-group input:-ms-input-placeholder {
+    color: #777;
+  }
+}
+
+.anchor a {
+  color: black;
+}
+
+.pointer {
+  cursor: pointer;;
+}
+
+.error {
+  color: red;
+  position: relative;
+  left: 20px;
+}
+
+.login-screen{
+
+  overflow: hidden;
+
+  .margin-center {
+    margin-top:5rem !important;
+  }
+
+  .row
+  {
+    width: fit-content;
+  }
+ 
+
+  img 
+  {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 75%;
+      
+  }
+  .nodisplay
+  {
+    position: relative;
+    top: -20%;
+  }
+  .message
+  {
+    color: red;
+  }
+  
+
+  .col-md-8
+  {
+    background: linear-gradient(to right, #4DABFF ,#62DDFF);
+ 
+    
+  }
+  .col-md-4 
+  {
+      background-color: white;
+      text-align: center;
+  }
+
+  .error {
+      color: red;
+      font-size: medium;
+  }
+
+  input {
+      display: block;
+      margin: 0px auto;
+      width: 80%;
+      background-color: white;
+      color: black;
+  }
+
+  input::placeholder {
+      color: black;
+      opacity: 70%;
+  }
+
+  button {
+      display: block;
+      margin: 0px auto;
+      background: linear-gradient(to right,#4DABFF ,#62DDFF);
+      color: white;
+      width: 80%;
+  }
+
+}
+
+/* LOGIN PAGES */
+
+@media screen and (max-width: 767px)
+{
+    .nodisplay
+    {
+        display: none;
+    }
+
+    .response{
+      flex: none !important;
+      max-width: 100% !important;
+    }
+}
+
+.text-danger
+{
+    font-size: 15px;
+}
+
+
+.socialbutton
+{
+  .fb {
+    background-color: #3B5998;
+    color: white;
+    margin: 20px;
+  }
+
+  .google {
+    display: inline-block;
+      background: white;
+      color: #444;
+      width: 190px;
+      border-radius: 5px;
+      border: thin solid #888;
+      box-shadow: 1px 1px 1px grey;
+      white-space: nowrap;
+  }
+  
+}
+
+
+  .hr-text {
+    line-height: 1em;
+    position: relative;
+    outline: 0;
+    border: 0;
+    color: black;
+    text-align: center;
+    height: 1.5em;
+    opacity: .5;
+    &:before {
+      content: '';
+      // use the linear-gradient for the fading effect
+      // use a solid background color for a solid bar
+      background: linear-gradient(to right, transparent, #818078, transparent);
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 100%;
+      height: 1px;
+    }
+    &:after {
+      content: attr(data-content);
+      position: relative;
+      display: inline-block;
+      color: black;
+
+      padding: 0 .5em;
+      line-height: 1.5em;
+      // this is really the only tricky part, you need to specify the background color of the container element...
+      color: #818078;
+      background-color: #fcfcfa;
+    }
+  }
+

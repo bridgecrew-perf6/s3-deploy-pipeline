@@ -1,0 +1,22 @@
+<div class="container-fluid">
+    <div class="row" style="line-height: 3;">
+        <div class="col-sm-2" style="border-right: 1px solid; ">
+            <div><h5>StoreFries</h5></div>
+            <div style="border-bottom: 1px solid black;"><h6>{{profileService.userData.firstName}} {{profileService.userData.lastName}}</h6></div>
+
+            <div>Account</div>
+            <div><a href="javascript:void(0)" (click)="tabName = 'personal'">Personal</a></div>
+            <div><a href="javascript:void(0)"  (click)="tabName = 'account'">Account Settings</a></div>
+            <div><a href="javascript:void(0)" (click)="tabName = 'billing'">Billing & Plan</a></div>
+            <div><a href="javascript:void(0)" (click)="tabName = 'security'">Security</a></div>
+            <div><a href="javascript:void(0)" (click)="tabName = 'users'">Users & Social Profile</a></div>
+        </div>
+        <div class="col-sm-10" style="border-left: 1px solid black;">
+            <app-personalinformation *ngIf="tabName === 'personal'"></app-personalinformation>
+            <app-profile *ngIf="tabName === 'account'"></app-profile>
+            <app-billinginformation *ngIf="tabName === 'billing'"></app-billinginformation>
+            <app-passwordupdate *ngIf="tabName === 'security'"></app-passwordupdate>
+            <app-usersocialprofile *ngIf="tabName === 'users'"></app-usersocialprofile>
+        </div>
+    </div>
+</div>

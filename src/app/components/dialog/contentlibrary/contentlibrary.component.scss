@@ -1,0 +1,33 @@
+.content-library {
+
+  h3 {
+    border-bottom: 1px solid lightgray;
+    padding-bottom: 0.5rem;
+  }
+
+  img {
+    height: 100px;
+    width: 130px;
+  }
+
+  .mediaRow {
+    text-align:center;
+    word-wrap: break-word;
+
+    .mediaColumn {
+        border: 1px solid lightgray;
+        border-radius: 3px;
+        margin: 0.5rem;
+        max-width:23%;
+    }
+
+    @media (min-width: 576px) {
+      .mediaColumn {
+        max-width:23% !important;
+    }
+    }
+  }
+
+
+}
+

@@ -1,0 +1,12 @@
+<div class="container content-library">
+  <h3>Content Library</h3>
+  <div class="row no-gutters mediaRow" *ngIf="mediaList">
+    <div class="col-sm-3 mediaColumn no-gutters" *ngFor="let media of mediaList">
+      <div class="col-sm-12">
+        <img src="{{'https://storefires-mediafiles.s3.ap-south-1.amazonaws.com/'+media.Key}}" />
+        <div class="col-sm-12">{{media.Key.split('/')[1]}}</div>
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-primary " (click)="modal.close()">Close</button>
+</div>

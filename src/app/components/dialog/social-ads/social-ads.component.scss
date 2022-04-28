@@ -1,0 +1,16 @@
+.socialConnect{
+  border: 1px solid grey;
+  border-radius: 5px;
+  margin: 0 1rem;
+  box-shadow: 5px 10px 18px #888888;
+  height: 10rem;
+  display: flex;
+
+  .socialBtn {
+    margin: auto;
+  }
+}
+
+.modal-body {
+  padding: 5rem 1rem;
+}

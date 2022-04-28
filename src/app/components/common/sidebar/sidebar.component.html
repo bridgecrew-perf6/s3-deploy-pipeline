@@ -1,0 +1,85 @@
+<div class="ak-sidebar border-right">
+  <div class="list-group-flush" style=" cursor: pointer;">
+    <div class="dropdown show">
+      <a title="Social Media" data-target="#socialMedia"
+        class="listcolour list-group-item list-group-item-action acolour" style="color: white;"> <i
+          class="far fa-users"></i>
+        Social Media
+      </a>
+      <div  style="text-indent: 10px;" id="socialMedia" aria-labelledby="dropdownMenuLink">
+        <button style="text-indent: 10px;" title="Connect to Social Media" type="button"
+          class="dropdown-item list-group-item list-group-item-action" (click)="openSocialModal()">
+          <i class="fas fa-network-wired"></i> Connect to Social Media
+        </button>
+        <div class="dropdown show">
+          <a data-toggle="collapse" data-target="#demo4" title="Template"
+            class="white list-group-item list-group-item-action"> <i class="fas fa-th-large"></i> Template
+            <i class="fas fa-caret-down"></i>
+          </a>
+          <div class="collapse" id="demo4" style="text-indent: 20px;" aria-labelledby="dropdownMenuLink">
+            <a href="javascript:void(0)" routerLink='/socialmedia/template/newtemplate' class="dropdown-item white" [routerLinkActive]="['active']" title="New Template" class="list-group-item list-group-item-action"> <i
+                class="far fa-border-all"></i> New Template</a>
+            <a href="javascript:void(0)" class="dropdown-item white" [routerLinkActive]="['active']" title="Saved Template" class="list-group-item list-group-item-action"> <i
+                class="far fa-save"></i> Saved Template</a>
+            <a href="javascript:void(0)" class="dropdown-item white" [routerLinkActive]="['active']" title="Pro Template" class="list-group-item list-group-item-action"> <i
+                class="fab fa-product-hunt"></i> Pro Template</a>
+          </div>
+        </div>
+        <div class="dropdown show" >
+          <a data-toggle="collapse" data-target="#demo5" class="white dropdown-item list-group-item list-group-item-action" title="Calendar">
+            <i class="far fa-calendar-alt"></i> Calendar <i class="fas fa-caret-down"></i></a>
+            <div id="demo5" style="text-indent: 20px;" class="collapse" aria-labelledby="dropdownMenuLink">
+              <a href="javascript:void(0)" class="dropdown-item white" routerLink="/socialmedia/calendar/planner" [routerLinkActive]="['active']" title="Planner" class="list-group-item list-group-item-action">
+               <i class="far fa-calendar-check"></i> Planner</a>
+              <a href="javascript:void(0)" class="dropdown-item white" [routerLinkActive]="['active']" title="Content" class="list-group-item list-group-item-action">
+                <i class="far fa-calendar-day"></i> Content</a>
+              <a href="javascript:void(0)" class="dropdown-item white" [routerLinkActive]="['active']" title="Promote" class="list-group-item list-group-item-action">
+                <i class="far fa-calendar-star"></i> Promote</a>
+            </div>
+        </div>
+
+
+        <div class="dropdown show">
+          <a   data-toggle="collapse" data-target="#demo2" title="Post" class="white list-group-item list-group-item-action"> <i
+              class="far fa-paper-plane"></i>
+            Post <i class="fas fa-caret-down"></i>
+          </a>
+          <div class="collapse" id="demo2" style="text-indent: 20px;" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" class="list-group-item list-group-item-action" title="New Post"
+            [routerLinkActive]="['active']"  routerLink='/socialmedia/post/newpost'>  <i class="far fa-edit"></i> New Post</a>
+            <a href="javascript:void(0)" class="dropdown-item" [routerLinkActive]="['active']" routerLink='/socialmedia/post/publishedpost' class="list-group-item list-group-item-action" title="Published Post"> <i
+                class="far fa-cloud"></i> Published Post</a>
+            <a href="javascript:void(0)" class="dropdown-item" [routerLinkActive]="['active']" routerLink='/socialmedia/post/savedpost' class="list-group-item list-group-item-action" title="Saved Post"> <i
+                class="far fa-save"></i> Saved Post</a>
+          </div>
+        </div>
+
+        <div class="dropdown">
+          <a data-toggle="collapse" data-target="#demo0" title="Post" class="white list-group-item list-group-item-action"> <i class="far fa-thumbtack"></i>
+            Tasks <i class="fas fa-caret-down"></i>
+          </a>
+          <div class="collapse" id="demo0" style="text-indent: 20px;" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" class="list-group-item list-group-item-action" title="New Post"
+            [routerLinkActive]="['active']"  >  <i class="far fa-edit"></i> My Opened Tasks</a>
+            <a href="javascript:void(0)" class="dropdown-item" [routerLinkActive]="['active']"  class="list-group-item list-group-item-action" title="Published Post"> <i
+                class="far fa-cloud"></i> My Closed Tasks</a>
+            <a href="javascript:void(0)" class="dropdown-item" [routerLinkActive]="['active']" class="list-group-item list-group-item-action" title="Saved Post"> <i
+                class="far fa-save"></i> All Tasks (Across Team)</a>
+          </div>
+        </div>
+
+
+        <a title="Feeds" routerLink='socialmedia/feeds' [routerLinkActive]="['active']" class="list-group-item list-group-item-action"> 
+          <i class="fas fa-list"></i> Feeds </a>
+
+        <a href="javascript:void(0)" class="dropdown-item  list-group-item list-group-item-action" [routerLinkActive]="['active']" title="Dashboard"
+          routerLink="/home/:userId/dashboard"> <i class="fas fa-chart-network"></i> Dashboard</a>
+
+        <button style="text-indent: 10px;" class="dropdown-item list-group-item list-group-item-action" title="Ads"
+          type="button" (click)="openSocialAdsModal()">
+          <i class="far fa-ad"></i> Ads
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

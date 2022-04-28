@@ -1,0 +1,51 @@
+
+.card-body
+{
+    background-color: white;
+}
+input {
+    display: block;
+    margin: 0px auto;
+    width: 75%;
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+}
+
+input::placeholder {
+    color: black;
+    opacity: 70%;
+}
+textarea
+{
+    display: block;
+    margin: 0px auto;
+    width: 75%;
+    background-color: white;
+    resize: none;
+    color: black;
+    border-radius: 10px;
+}
+textarea::placeholder
+{
+    color: black;
+    opacity: 70%;
+}
+select
+{
+    display: block;
+    margin: 0px auto;
+    width: 75%;
+    height: 120%;
+    padding: 10px;
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+}
+button {
+    display: block;
+    margin: 0px auto;
+    background: linear-gradient(to right,#4DABFF ,#62DDFF);
+    color: white;
+    width: 75%;
+}
